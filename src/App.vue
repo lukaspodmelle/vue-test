@@ -11,18 +11,22 @@ import Task from './components/Task.vue';
 
 const controlsButton = 'w-4 h-4';
 
-/* Remove Todo Item */
-const removeTodo = (id: number) => {
+/* Handle remove rodo item */
+const handleDeleteTodo = (id: number) => {
 	store.deleteTodo(id);
 };
 
-/* Add Todo Item */
+/* Handle add todo item */
 const todoTitle = ref('');
 const handleAddTodo = () => {
 	if (todoTitle.value.trim() !== '') {
 		store.addTodo(todoTitle.value.trim());
 		todoTitle.value = '';
 	}
+};
+/* Handle complete todo item */
+const handleCompleteTodo = (id: number) => {
+	store.completeTodo(id);
 };
 </script>
 
@@ -54,9 +58,11 @@ const handleAddTodo = () => {
 				:title="task.title"
 				:comments="task.comments"
 				:tag="task.tag"
-				@on-delete="removeTodo(task.id)" />
+				:done="task.done"
+				@on-delete="handleDeleteTodo(task.id)"
+				@on-complete="handleCompleteTodo(task.id)" />
 		</ul>
-		<div class="flex gap-2 mt-4">
+		<div class="flex flex-col md:flex-row gap-2 mt-4">
 			<form @submit.prevent="handleAddTodo" class="contents">
 				<input
 					v-model="todoTitle"
@@ -70,5 +76,6 @@ const handleAddTodo = () => {
 				</button>
 			</form>
 		</div>
+		<!-- <pre class="absolute top-0 left-0">{{ store.todos }}</pre> -->
 	</div>
 </template>

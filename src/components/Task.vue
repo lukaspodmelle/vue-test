@@ -13,6 +13,7 @@ defineProps({
 	title: String,
 	comments: Number,
 	tag: String,
+	done: Boolean,
 });
 
 const controlsButton = 'w-4 h-4';
@@ -22,14 +23,13 @@ const controlsButton = 'w-4 h-4';
 	<li
 		class="flex justify-between items-center py-2 border-b border-slate-200">
 		<div class="flex items-center gap-2">
-			<input type="checkbox" />
-			<a>{{ title }}</a>
+			<input type="checkbox" @click="$emit('on-complete')" />
+			<a :class="{ 'line-through': done }">{{ title }}</a>
 			<div class="hidden md:flex gap-2 items-center">
-				<a
-					href="#"
-					class="bg-slate-100 text-slate-400 leading-[2] text-xs px-2 rounded-tl-full rounded-tr-full rounded-br-full rounded-bl-sm"
-					>{{ comments }}</a
-				>
+				<button
+					class="bg-slate-100 text-slate-400 leading-[2] text-xs px-2 rounded-tl-full rounded-tr-full rounded-br-full rounded-bl-sm">
+					{{ comments }}
+				</button>
 				<div class="flex gap-2 text-slate-500">
 					<button>
 						<UserIcon :class="controlsButton" />
