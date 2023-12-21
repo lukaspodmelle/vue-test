@@ -1,4 +1,3 @@
-// store.js
 import { reactive } from 'vue';
 
 interface Todo {
